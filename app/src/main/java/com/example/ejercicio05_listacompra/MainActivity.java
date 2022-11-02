@@ -4,10 +4,13 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import com.example.ejercicio05_listacompra.adapters.ProductosAdapter;
 import com.example.ejercicio05_listacompra.modelos.Producto;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -31,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private ArrayList<Producto> productosList;
+    //12+1:
+    private ProductosAdapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +46,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar);
         productosList = new ArrayList<>();
+
+        //12+1.01: Instanciamos el layout y el adapter y se lo pasamos al binding para que reconozca los IDs
+        adapter = new ProductosAdapter(productosList, R.layout.producto_view_holder, this);
+        layoutManager = new GridLayoutManager(this, 1);
+        binding.contentMain.contenedor.setLayoutManager(layoutManager);
+        binding.contentMain.contenedor.setAdapter(adapter);
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
 
         //2.01: Creamos el botón de cancelar
         builder.setView(productoViewModel);
+
+        //TODO: EL SIGUIENTE PASO ES EL 15
 
         //3: He creado la variable TextWatcher. Esto es lo que pasa Antes, Durante y (el que nos importa) Después de escribir el texto
         //Los logs son para ver qué está pasando, no es relevante en la App
@@ -123,6 +137,8 @@ public class MainActivity extends AppCompatActivity {
                     );
                     //2.04: Añadimos el producto
                     productosList.add(producto);
+                    //14: Notificamos cada vez que se inserta un producto, con esto desplaza el número de elementos hacia abajo cada vez que se inserta uno
+                    adapter.notifyItemInserted(productosList.size() - 1);
                 } else {
                     Toast.makeText(MainActivity.this, "FALTAN DATOS", Toast.LENGTH_SHORT).show();
                 }
