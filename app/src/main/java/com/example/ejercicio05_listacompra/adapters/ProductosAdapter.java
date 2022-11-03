@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +18,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ejercicio05_listacompra.MainActivity;
 import com.example.ejercicio05_listacompra.R;
 import com.example.ejercicio05_listacompra.modelos.Producto;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 
@@ -114,7 +117,7 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "HOLA", Toast.LENGTH_SHORT).show();
+                updateProducto(producto).show();
             }
         });
 
@@ -122,8 +125,85 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
 
     @Override
     public int getItemCount() {
-        //9: Esto ha de retornar la cantidad de objetos creada
         return objects.size();
+    }
+
+    //18: Actualizar producto cambiando lo que ponía "this" por "context"
+    private AlertDialog updateProducto(Producto producto) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Editar producto de la cesta");
+        builder.setCancelable(false);
+
+        View productoViewModel = LayoutInflater.from(context).inflate(R.layout.producto_view_model, null);
+        TextView lblTotal = productoViewModel.findViewById(R.id.lblTotalProductoViewModel);
+        EditText txtNombre = productoViewModel.findViewById(R.id.txtNombreProductoViewModel);
+        EditText txtCantidad = productoViewModel.findViewById(R.id.txtCantidadProductoViewModel);
+        EditText txtPrecio = productoViewModel.findViewById(R.id.txtPrecioProductoViewModel);
+
+
+
+        builder.setView(productoViewModel);
+
+
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.d("EVENTO-TEXYO", "BEFORE" + charSequence);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.d("EVENTO-TEXYO", "BEFORE" + charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                Log.d("EVENTO-TEXTO", "BEFORE" + editable.toString());
+                //Esto explotará en algún momento, por lo que lo metemos en un try - catch
+                try {
+                    int cantidad = Integer.parseInt(txtCantidad.getText().toString());
+                    float precio = Float.parseFloat(txtPrecio.getText().toString());
+
+                    float total = cantidad * precio;
+
+                    //El numberFormat convierte el número al tipo de moneda que el teléfono tiene configurada (5 -> 5€ || 5$)
+                    NumberFormat numberFormat = NumberFormat.getCurrencyInstance();
+                    lblTotal.setText(numberFormat.format(total));
+                } catch (NumberFormatException nfe) {
+
+                }
+            }
+        };
+
+        txtCantidad.addTextChangedListener(textWatcher);
+        txtPrecio.addTextChangedListener(textWatcher);
+
+        //18.01 TODO: COMENTAR
+        txtCantidad.setText(String.valueOf(producto.getCantidad()));
+        txtPrecio.setText(String.valueOf(producto.getImporte()));
+        txtNombre.setText(producto.getNombre());
+
+        builder.setNegativeButton("CANCELAR", null);
+        builder.setPositiveButton("UPDATE", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (!txtNombre.getText().toString().isEmpty() && !txtCantidad.getText().toString().isEmpty() && !txtPrecio.getText().toString().isEmpty()) {
+                    //19: Creamos el nuevo producto actualizado
+                    //TODO: EL PASO 20 (GIRAR LA PANTALLA) ESTÁ EN EL MAIN
+                    producto.setCantidad(Integer.parseInt(txtCantidad.getText().toString()));
+                    producto.setImporte(Float.parseFloat(txtPrecio.getText().toString()));
+                    producto.setNombre(txtNombre.getText().toString());
+                    producto.actualizaTotal();
+
+                    notifyItemChanged(objects.indexOf(producto));
+                } else {
+                    Toast.makeText(context, "FALTAN DATOS", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        return builder.create();
     }
 
     //15.01: Hacemos el cuadro de confirmación de eliminar un producto

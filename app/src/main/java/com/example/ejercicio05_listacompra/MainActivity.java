@@ -8,10 +8,13 @@ import com.example.ejercicio05_listacompra.adapters.ProductosAdapter;
 import com.example.ejercicio05_listacompra.modelos.Producto;
 import com.google.android.material.snackbar.Snackbar;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.PersistableBundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -122,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
         txtPrecio.addTextChangedListener(textWatcher);
 
 
-
         builder.setNegativeButton("CANCELAR", null);
 
         //2.02: Botón agregar
@@ -132,8 +134,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (!txtNombre.getText().toString().isEmpty() && !txtCantidad.getText().toString().isEmpty() && !txtPrecio.getText().toString().isEmpty()) {
                     Producto producto = new Producto(txtNombre.getText().toString(),
-                                                    Integer.parseInt(txtCantidad.getText().toString()),
-                                                    Float.parseFloat(txtPrecio.getText().toString())
+                        Integer.parseInt(txtCantidad.getText().toString()),
+                        Float.parseFloat(txtPrecio.getText().toString())
                     );
                     //2.04: Añadimos el producto
                     productosList.add(producto);
@@ -146,5 +148,23 @@ public class MainActivity extends AppCompatActivity {
         });
 
         return builder.create();
+    }
+
+    //20: Girar la pantalla y que no se borren los datos
+    //Al girar la pantalla se destruye y se reconstruye la actividad. Mientras giras la pantalla, los datos que tú quieras se guardan en el bundle onState.
+    //Una vez se reconstruya la actividad, el bundle onState se pasa al savedInstanceState y lo muestra
+    //20.01: Hay que hacer serializable la clase Producto
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("LISTA", productosList);
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        productosList.addAll((ArrayList<Producto>) savedInstanceState.getSerializable("LISTA"));
+        adapter.notifyDataSetChanged();
     }
 }

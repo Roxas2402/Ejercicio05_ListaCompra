@@ -1,6 +1,9 @@
 package com.example.ejercicio05_listacompra.modelos;
 
-public class Producto {
+import java.io.Serializable;
+
+//20.01: Hacer serializable
+public class Producto implements Serializable {
     private String nombre;
     private int cantidad;
     private float importe;
