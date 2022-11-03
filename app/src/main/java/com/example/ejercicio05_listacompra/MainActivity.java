@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
 
-                Log.d("EVENTO-TEXYO", "BEFORE" + editable.toString());
+                Log.d("EVENTO-TEXTO", "BEFORE" + editable.toString());
                 //Esto explotará en algún momento, por lo que lo metemos en un try - catch
                 try {
                     int cantidad = Integer.parseInt(txtCantidad.getText().toString());
