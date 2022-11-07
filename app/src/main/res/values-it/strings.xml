@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ejercicio05_ListaCompra</string>
+    <string name="alert_add_title">Modificare nuovo produtto</string>
+    <string name="alert_cancel_button">Annulla</string>
+    <string name="alert_add_ok_button">Creare</string>
+    <string name="alert_edit_ok_button">Modificare</string>
+    <string name="hint_nombre_producto">Nombre produtto</string>
+    <string name="alert_edit_title">Editare produtto</string>
+    <string name="hint_precio_producto">Precio produtto</string>
+    <string name="hint_cantidad_producto">Cantidade produtto</string>
+    <string name="alert_aviso">Questa azione non può essere annullata</string>
+</resources>

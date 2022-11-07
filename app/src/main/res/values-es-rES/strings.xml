@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ejercicio05_ListaCompra</string>
+    <string name="alert_cancel_button">Cancelar</string>
+    <string name="alert_add_ok_button">Crear</string>
+    <string name="alert_edit_ok_button">Editar</string>
+    <string name="first_fragment_label">Primer fragmento</string>
+    <string name="second_fragment_label">Segundo fragmento</string>
+    <string name="next">Siguiente</string>
+    <string name="previous">Anterior</string>
+    <string name="hint_nombre_producto">Nombre de producto</string>
+    <string name="hint_cantidad_producto">Cantidad de productos</string>
+    <string name="hint_precio_producto">Precio del producto</string>
+    <string name="alert_edit_title">Editar producto</string>
+    <string name="alert_add_title">Añadir nuevo producto</string>
+    <string name="alert_aviso">Esta acción no se puede revertir</string>
+    <string name="hello_first_fragment">Hola primer fragmento</string>
+    <string name="hello_second_fragment">Hola segundo fragmento</string>
+</resources>

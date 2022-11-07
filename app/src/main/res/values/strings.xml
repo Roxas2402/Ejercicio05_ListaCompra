@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Ejercicio05_ListaCompra</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings" translatable="false">Settings</string>
+    <string name="alert_add_title">Add new product</string>
+    <string name="alert_cancel_button">Cancel</string>
+    <string name="alert_add_ok_button">Create</string>
+    <string name="alert_edit_ok_button">Edit</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -9,4 +13,9 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="hint_nombre_producto">Product name</string>
+    <string name="hint_cantidad_producto">Product Quantity</string>
+    <string name="hint_precio_producto">Price</string>
+    <string name="alert_edit_title">Edit Product</string>
+    <string name="alert_aviso">This action cannot be ctrl z</string>
 </resources>

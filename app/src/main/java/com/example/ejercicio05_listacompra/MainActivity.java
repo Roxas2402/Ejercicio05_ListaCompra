@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     //2: Crear alerta
     private AlertDialog createProducto() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Agregar producto a la cesta");
+        builder.setTitle(R.string.alert_add_title);
         //Para que al presionar fuera no se cierre la ventana
         builder.setCancelable(false);
 
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Log.d("EVENTO-TEXYO", "BEFORE" + charSequence);
+                Log.d("EVENTO-TEXTO", "BEFORE" + charSequence);
             }
 
             //TODO 4: CREAMOS LO DEL CONTENT MAIN, AÑADIMOS EL RECYCLERVIEW Y LO RENOMBRAMOS A CONTENEDOR, EN EL ACTIVITY MAIN IGUAL Y LO LLAMAMOS CONTENTMAIN
@@ -125,11 +125,11 @@ public class MainActivity extends AppCompatActivity {
         txtPrecio.addTextChangedListener(textWatcher);
 
 
-        builder.setNegativeButton("CANCELAR", null);
+        builder.setNegativeButton(R.string.alert_cancel_button, null);
 
         //2.02: Botón agregar
         //2.03: Si los datos no están vacíos, creamos el producto
-        builder.setPositiveButton("AGREGAR", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.alert_add_ok_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (!txtNombre.getText().toString().isEmpty() && !txtCantidad.getText().toString().isEmpty() && !txtPrecio.getText().toString().isEmpty()) {

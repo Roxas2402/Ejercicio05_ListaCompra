@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:ems="10"
-        android:hint="Nombre del producto"
+        android:hint="@string/hint_nombre_producto"
         android:inputType="textPersonName"
         android:padding="10dp" />
 
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:ems="10"
-        android:hint="Cantidad"
+        android:hint="@string/hint_cantidad_producto"
         android:inputType="number"
         android:padding="10dp" />
 
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:ems="10"
-        android:hint="Precio"
+        android:hint="@string/hint_precio_producto"
         android:inputType="numberDecimal"
         android:padding="10dp" />
 

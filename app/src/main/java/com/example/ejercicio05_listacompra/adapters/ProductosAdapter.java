@@ -131,7 +131,7 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
     //18: Actualizar producto cambiando lo que ponía "this" por "context"
     private AlertDialog updateProducto(Producto producto) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Editar producto de la cesta");
+        builder.setTitle(R.string.alert_edit_title);
         builder.setCancelable(false);
 
         View productoViewModel = LayoutInflater.from(context).inflate(R.layout.producto_view_model, null);
@@ -148,7 +148,7 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
         TextWatcher textWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Log.d("EVENTO-TEXYO", "BEFORE" + charSequence);
+                Log.d("EVENTO-TEXTO", "BEFORE" + charSequence);
             }
 
             @Override
@@ -184,8 +184,8 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
         txtPrecio.setText(String.valueOf(producto.getImporte()));
         txtNombre.setText(producto.getNombre());
 
-        builder.setNegativeButton("CANCELAR", null);
-        builder.setPositiveButton("UPDATE", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.alert_cancel_button, null);
+        builder.setPositiveButton(R.string.alert_add_ok_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (!txtNombre.getText().toString().isEmpty() && !txtCantidad.getText().toString().isEmpty() && !txtPrecio.getText().toString().isEmpty()) {
@@ -209,7 +209,7 @@ public class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.Prod
     //15.01: Hacemos el cuadro de confirmación de eliminar un producto
     private AlertDialog confirmDelete(Producto producto) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("¿¿¿¿Seguroooo????");
+        builder.setTitle(R.string.alert_aviso);
         builder.setCancelable(false);
         TextView textView = new TextView(context);
         textView.setText("Esta acción es irreversible");
